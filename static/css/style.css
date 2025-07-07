@@ -1,0 +1,16 @@
+#main-header{
+    font-family: Ubuntu, serif;
+    font-weight: bolder;
+    font-size: 40px;
+}
+#main-container{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+}
+#main-table td{
+    background-color: antiquewhite;
+    height: 10px;
+    width: 10px;
+}
