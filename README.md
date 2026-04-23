@@ -5,7 +5,7 @@ Project is running on the Raspberry Pi 5 and uses a NeoPixel LED matrix to displ
 ## Libraries Used
 - NeoPixel Library: Used to control the NeoPixel LED matrix.
 
-Used data pin is GPIO 23
+Used data pin is GPIO pin 18
 
 ## Installation
 1. When just imaging the Rpi make sure to go throuhgh the setup process and connect to Wi-Fi.
