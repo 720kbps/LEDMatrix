@@ -1,33 +1,44 @@
 import time
-from rpi_ws281x import PixelStrip, Color
 
-# LED strip configuration:
-LED_COUNT = 256        # Number of LED pixels.
-LED_PIN = 18          # GPIO pin (18 is PWM).
-LED_FREQ_HZ = 800000  # LED signal frequency (usually 800kHz)
-LED_DMA = 10          # DMA channel to use for generating signal
-LED_BRIGHTNESS = 64   # Brightness (0-255)
-LED_INVERT = False    # True to invert signal (NPN transistor level shift)
-LED_CHANNEL = 0       # Set to '1' for GPIOs 13, 19, 41, 45, or 53
+from pi5neo import Pi5Neo
+from PIL import Image
 
-# Initialize strip
-strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT,
-                   LED_BRIGHTNESS, LED_CHANNEL)
-strip.begin()
+LED_COUNT = 256
+TIMER = 10 #seconds
 
-# Function to set all LEDs to one color
-def color_wipe(color, wait_ms=50):
-    for i in range(strip.numPixels()):
-        strip.setPixelColor(i, color)
-        strip.show()
-        time.sleep(wait_ms / 1000.0)
+def _create_strip() -> Pi5Neo:
+    # Use explicit keyword args supported by recent Pi5Neo releases.
+    return Pi5Neo('/dev/spidev0.0', num_leds=LED_COUNT, spi_speed_khz=800)
 
-# Example usage
-try:
-    while True:
-        color_wipe(Color(255, 0, 0))  # Red
-        color_wipe(Color(0, 255, 0))  # Green
-        color_wipe(Color(0, 0, 255))  # Blue
-except KeyboardInterrupt:
-    # Turn off LEDs on Ctrl+C
-    color_wipe(Color(0, 0, 0))
+
+def _show(strip: Pi5Neo) -> None:
+    strip.update_strip()
+
+
+def _clear(strip: Pi5Neo) -> None:
+    # Clear all LEDs so old frame data is not left visible.
+    strip.clear_strip()
+    _show(strip)
+
+def _import_image(path: str) -> Image.Image:
+    img = Image.open(path).convert('RGB')
+    return img
+
+def main() -> None:
+    strip = _create_strip()
+    _clear(strip)
+    print('Cleared strip')
+
+    img = _import_image('../images/pixil-frame-0.png')
+    width, height = img.size()
+    for y in range(height):
+        for x in range(width):
+            r, g, b = img.getpixel((x, y))
+            strip.set_pixel_color(y * width + x, r, g, b)
+
+    time.sleep(TIMER)
+    _clear(strip)
+    print('Cleared strip')
+
+if __name__ == '__main__':
+    main()
