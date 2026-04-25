@@ -5,6 +5,7 @@ from PIL import Image
 
 LED_COUNT = 256
 TIMER = 10 #seconds
+DEFAULT_BRIGHTNESS = 0.25  # 0.0 (off) to 1.0 (full)
 
 def _create_strip() -> Pi5Neo:
     # Use explicit keyword args supported by recent Pi5Neo releases.
@@ -14,6 +15,12 @@ def _create_strip() -> Pi5Neo:
 def _show(strip: Pi5Neo) -> None:
     strip.update_strip()
 
+def _scale_rgb(r: int, g: int, b: int, brightness) -> tuple[int, int, int]:
+    return (
+        max(0, min(255, int(r * brightness))),
+        max(0, min(255, int(g * brightness))),
+        max(0, min(255, int(b * brightness))),
+    )
 
 def _clear(strip: Pi5Neo) -> None:
     # Clear all LEDs so old frame data is not left visible.
@@ -30,10 +37,12 @@ def main() -> None:
     print('Cleared strip')
 
     img = _import_image('../images/pixil-frame-0.png')
-    width, height = img.size()
+    width, height = img.size
     for y in range(height):
+        _show(strip)
         for x in range(width):
             r, g, b = img.getpixel((x, y))
+            r, g, b = _scale_rgb(r, g, b, DEFAULT_BRIGHTNESS) # set brightness
             strip.set_pixel_color(y * width + x, r, g, b)
 
     time.sleep(TIMER)
