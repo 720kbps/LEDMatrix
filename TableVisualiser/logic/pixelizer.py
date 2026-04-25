@@ -31,6 +31,11 @@ def _import_image(path: str) -> Image.Image:
     img = Image.open(path).convert('RGB')
     return img
 
+def coords_to_index(x: int, y: int, width: int) -> int:
+    if y % 2 == 0:
+        return y * width + x
+    return y * width + (width - 1 - x)
+
 def main() -> None:
     strip = _create_strip()
     _clear(strip)
@@ -43,7 +48,8 @@ def main() -> None:
         for x in range(width):
             r, g, b = img.getpixel((x, y))
             r, g, b = _scale_rgb(r, g, b, DEFAULT_BRIGHTNESS) # set brightness
-            strip.set_pixel_color(y * width + x, r, g, b)
+            led_index = coords_to_index(x, y, width)
+            strip.set_led_color(led_index, r, g, b)
 
     time.sleep(TIMER)
     _clear(strip)
