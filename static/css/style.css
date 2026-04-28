@@ -11,6 +11,8 @@
 }
 #main-table {
     border-collapse: collapse !important;
+    width: auto !important;
+    table-layout: auto !important;
 }
 
 #main-table td {
@@ -53,6 +55,8 @@
     border: 1px solid #ddd;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     cursor: pointer;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
 }
 
 .gallery-thumb:hover {
