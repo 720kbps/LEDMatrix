@@ -18,18 +18,12 @@
         <form id="upload-form" action="{% url 'upload_image' %}" method="post" enctype="multipart/form-data" class="mt-3">
             {% csrf_token %}
             <div class="input-group">
-                <input class="form-control" type="file" name="image" accept="image/*" required>
+                <input class="form-control" type="file" name="image" id="upload-input" accept="image/*" required>
                 <button class="btn btn-primary" type="submit">Upload Picture</button>
             </div>
         </form>
         {% if error %}
             <div class="text-danger mt-2">{{ error }}</div>
-        {% endif %}
-        {% if image_url %}
-            <div class="mt-3">
-                <div>Uploaded image preview:</div>
-                <img src="{{ image_url }}" alt="Uploaded" class="img-fluid" style="max-width: 256px;">
-            </div>
         {% endif %}
         <div class="gallery mt-4">
             <div class="gallery-title">Latest uploads</div>

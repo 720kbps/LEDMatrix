@@ -24,5 +24,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tbody.appendChild(row);
   }
+
+  const gallery = document.querySelector('.gallery-row');
+  if (gallery) {
+    gallery.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLImageElement)) {
+        return;
+      }
+      renderImageToGrid(target.src);
+      //TODO: send to backend to update the view on the
+    });
+  }
+
+  const uploadInput = document.getElementById('upload-input');
+  if (uploadInput) {
+    uploadInput.addEventListener('change', (event) => {
+      const file = event.target.files?.[0];
+      if (!file) {
+        return;
+      }
+
+      const previewUrl = URL.createObjectURL(file);
+      renderImageToGrid(previewUrl);
+    });
+  }
+
+  const latestImage = document.getElementById('latest-image');
+  if (latestImage?.dataset.url) {
+    renderImageToGrid(latestImage.dataset.url);
+  }
 });
 
+function renderImageToGrid(imageUrl) {
+  if (!imageUrl) {
+    return;
+  }
+
+  const img = new Image();
+
+  img.src = imageUrl;
+  img.onload = () => {
+    const width = 16;
+    const height = 16;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      return;
+    }
+
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(img, 0, 0, width, height);
+    const data = ctx.getImageData(0, 0, width, height).data;
+
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < width; x += 1) {
+        const i = (y * width + x) * 4;
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const a = data[i + 3];
+
+        const cell = document.getElementById(`cell-${x}-${y}`);
+        if (cell) {
+          cell.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a / 255})`;
+        }
+      }
+    }
+  };
+}
