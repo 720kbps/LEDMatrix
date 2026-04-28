@@ -44,13 +44,14 @@ def main() -> None:
     img = _import_image('../images/pixil-frame-0.png')
     width, height = img.size
     for y in range(height):
-        _show(strip)
         for x in range(width):
             r, g, b = img.getpixel((x, y))
             r, g, b = _scale_rgb(r, g, b, DEFAULT_BRIGHTNESS) # set brightness
             led_index = coords_to_index(x, y, width)
             strip.set_led_color(led_index, r, g, b)
+        _show(strip)
 
+    print('Displayed the image')
     time.sleep(TIMER)
     _clear(strip)
     print('Cleared strip')
