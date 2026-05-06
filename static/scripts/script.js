@@ -32,10 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!(target instanceof HTMLImageElement)) {
         return;
       }
+      console.log(target);
       renderImageToGrid(target.src);
       //TODO: send to backend to update the view on the
     });
   }
+
 
   const uploadInput = document.getElementById('upload-input');
   if (uploadInput) {
@@ -55,6 +57,23 @@ document.addEventListener('DOMContentLoaded', () => {
     renderImageToGrid(latestImage.dataset.url);
   }
 });
+
+function sendImageChangeRequest(imgSrc){
+  const payload = {image: imgSrc};
+
+  fetch('/api/update-image', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+    })
+      .then(response => {
+        if (!response.ok) {
+      console.error('Failed to update image on the server');
+    }
+  })
+}
 
 function renderImageToGrid(imageUrl) {
   if (!imageUrl) {

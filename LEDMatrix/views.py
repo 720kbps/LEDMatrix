@@ -1,13 +1,18 @@
+import json
+
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 from django.utils.text import get_valid_filename
 from django.conf import settings
+from TableVisualiser.logic.pixelizer import update_image, import_image
 
 import os
 import uuid
 
-UPLOADS_DIR = os.path.join(settings.MEDIA_ROOT, 'uploads')
+from TableVisualiser.logic.strip import get_strip
 
+UPLOADS_DIR = os.path.join(settings.MEDIA_ROOT, 'uploads')
+DEFAULT_BRIGHTNESS = 0.25  # 0.0 (off) to 1.0 (full)
 
 def _get_latest_images(limit=10):
     if not os.path.isdir(UPLOADS_DIR):
@@ -47,3 +52,13 @@ def upload_image(request):
         'image_url': image_url,
         'gallery_images': _get_latest_images(),
     })
+
+
+def update_image(request):
+    strip = get_strip()
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        imageSrc = data['image']
+        image = import_image(imageSrc)
+        update_image(imageSrc, strip)
