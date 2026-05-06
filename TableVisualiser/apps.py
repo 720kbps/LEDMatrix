@@ -7,4 +7,6 @@ class TablevisualiserConfig(AppConfig):
     name = 'TableVisualiser'
 
     def ready(self):
+        print('Initializing LED strip...')
         get_strip()
+        print('LED strip initialized.')

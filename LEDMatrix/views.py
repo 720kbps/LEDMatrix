@@ -54,11 +54,12 @@ def upload_image(request):
     })
 
 
-def update_image(request):
+def update_image_backend(request):
     strip = get_strip()
 
     if request.method == 'POST':
         data = json.loads(request.body)
         imageSrc = data['image']
         image = import_image(imageSrc)
-        update_image(imageSrc, strip)
+        update_image(image, strip)
+    print('update_image_backend ran')
