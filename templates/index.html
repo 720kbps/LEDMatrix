@@ -15,6 +15,7 @@
         <table id="main-table" class="table table-bordered table-hover" style="margin: 20px auto;">
             <tbody id="matrix-body"></tbody>
         </table>
+        <button id="clear-button" class="btn btn-danger" type="button">Clear</button>
         <form id="upload-form" action="{% url 'upload_image' %}" method="post" enctype="multipart/form-data" class="mt-3">
             {% csrf_token %}
             <div class="input-group">

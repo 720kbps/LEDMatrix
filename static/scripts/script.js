@@ -56,7 +56,22 @@ document.addEventListener('DOMContentLoaded', () => {
   if (latestImage?.dataset.url) {
     renderImageToGrid(latestImage.dataset.url);
   }
+
+  const clearButton = document.getElementById('clear-button');
+  if (clearButton) {
+    clearButton.addEventListener('click', () => {
+      clearGrid();
+      // TODO: send a clear command to the backend LED matrix.
+    });
+  }
 });
+
+function clearGrid() {
+  const cells = document.querySelectorAll('.matrix-cell');
+  cells.forEach((cell) => {
+    cell.style.backgroundColor = '';
+  });
+}
 
 function sendImageChangeRequest(imgSrc){
   const payload = {image: imgSrc};
