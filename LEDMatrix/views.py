@@ -73,6 +73,7 @@ def update_image_backend(request):
 
     return JsonResponse({'status': 'ok'})
 
+@csrf_exempt
 def clear_image_backend(request):
     data = json.loads(request.body)
     instruction = data.get('instruction')
