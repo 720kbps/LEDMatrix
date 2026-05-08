@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       console.log(target);
       renderImageToGrid(target.src);
-      //TODO: send to backend to update the view on the
+      //send to backend
+      sendImageChangeRequest(target.src)
     });
   }
 
