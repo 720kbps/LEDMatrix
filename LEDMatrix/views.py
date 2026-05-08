@@ -69,7 +69,7 @@ def update_image_backend(request):
         return JsonResponse({'error': 'Missing image'}, status=400)
 
     print(settings.BASE_DIR)
-    image_path = Path(settings.BASE_DIR) / image_src
+    image_path = Path(settings.BASE_DIR) / Path(image_src)
     print(image_path)
     strip = get_strip()
     image = import_image(image_path)
