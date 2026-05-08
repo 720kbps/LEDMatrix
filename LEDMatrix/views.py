@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
@@ -67,6 +68,7 @@ def update_image_backend(request):
     if not image_src:
         return JsonResponse({'error': 'Missing image'}, status=400)
 
+    image_src = Path('..') / image_src
     strip = get_strip()
     image = import_image(image_src)
     update_image(image, strip)
