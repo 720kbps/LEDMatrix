@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (clearButton) {
     clearButton.addEventListener('click', () => {
       clearGrid();
+
       // TODO: send a clear command to the backend LED matrix.
     });
   }
@@ -79,6 +80,23 @@ function sendImageChangeRequest(imgSrc){
   const payload = {image: imgSrc};
 
   fetch('/api/update-image', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+    })
+      .then(response => {
+        if (!response.ok) {
+      console.error('Failed to update image on the server');
+    }
+  })
+}
+
+function clearImage(){
+  const payload = {instruction: "clear"};
+
+  fetch('/api/clear-image', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

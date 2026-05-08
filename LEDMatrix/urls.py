@@ -26,6 +26,7 @@ urlpatterns = [
     path('', views.homepage, name='homepage'),
     path('upload/', views.upload_image, name='upload_image'),
     path('api/update-image', views.update_image_backend, name='update_image_backend'),
+    path('api/clear-image', views.clear_image_backend, name='update_image_backend'),
 ]
 
 if settings.DEBUG:

@@ -7,7 +7,7 @@ from django.utils.text import get_valid_filename
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from TableVisualiser.logic.pixelizer import update_image, import_image
+from TableVisualiser.logic.pixelizer import update_image, import_image, clear
 
 import os
 import uuid
@@ -59,9 +59,6 @@ def upload_image(request):
 
 @csrf_exempt
 def update_image_backend(request):
-    if request.method != 'POST':
-        return JsonResponse({'error': 'POST required'}, status=405)
-
     data = json.loads(request.body)
     image_src = data.get('image')
     print(image_src)
@@ -73,5 +70,16 @@ def update_image_backend(request):
     print(image_path)
     strip = get_strip()
     update_image(image_path, strip)
+
+    return JsonResponse({'status': 'ok'})
+
+def clear_image_backend(request):
+    data = json.loads(request.body)
+    instruction = data.get('instruction')
+    if instruction == 'clear':
+        strip = get_strip()
+        clear(strip)
+    else:
+        return JsonResponse({'error': 'Invalid instruction'}, status=400)
 
     return JsonResponse({'status': 'ok'})
