@@ -63,6 +63,7 @@ def update_image_backend(request):
 
     data = json.loads(request.body)
     image_src = data.get('image')
+    print(image_src)
     if not image_src:
         return JsonResponse({'error': 'Missing image'}, status=400)
 
