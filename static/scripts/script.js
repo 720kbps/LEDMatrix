@@ -32,10 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!(target instanceof HTMLImageElement)) {
         return;
       }
-      console.log(target.src);
+      let imagePath = target.getAttribute('src')
+      console.log(imagePath);
       renderImageToGrid(target.src);
       //send to backend
-      sendImageChangeRequest(target.src)
+      sendImageChangeRequest(imagePath)
     });
   }
 
