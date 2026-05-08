@@ -72,7 +72,6 @@ def update_image_backend(request):
     image_path = Path(settings.BASE_DIR) / Path(image_src.lstrip("/"))
     print(image_path)
     strip = get_strip()
-    image = import_image(image_path)
-    update_image(image, strip)
+    update_image(image_path, strip)
 
     return JsonResponse({'status': 'ok'})
