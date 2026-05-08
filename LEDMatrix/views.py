@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 from django.utils.text import get_valid_filename
 from django.conf import settings
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from TableVisualiser.logic.pixelizer import update_image, import_image
 
 import os
@@ -54,12 +56,18 @@ def upload_image(request):
     })
 
 
+@csrf_exempt
 def update_image_backend(request):
-    strip = get_strip()
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=405)
 
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        imageSrc = data['image']
-        image = import_image(imageSrc)
-        update_image(image, strip)
-    print('update_image_backend ran')
+    data = json.loads(request.body)
+    image_src = data.get('image')
+    if not image_src:
+        return JsonResponse({'error': 'Missing image'}, status=400)
+
+    strip = get_strip()
+    image = import_image(image_src)
+    update_image(image, strip)
+
+    return JsonResponse({'status': 'ok'})

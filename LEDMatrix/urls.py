@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.homepage, name='homepage'),
     path('upload/', views.upload_image, name='upload_image'),
-    path('api/update_image', views.update_image_backend, name='send_image_api'),
+    path('api/update-image', views.update_image_backend, name='update_image_backend'),
 ]
 
 if settings.DEBUG:
