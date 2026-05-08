@@ -63,8 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (clearButton) {
     clearButton.addEventListener('click', () => {
       clearGrid();
-
-      // TODO: send a clear command to the backend LED matrix.
+      clearImage()
     });
   }
 });
