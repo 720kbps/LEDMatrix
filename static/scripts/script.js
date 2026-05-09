@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const img = new Image();
 
       img.onload = () => {
+        console.log(img.width, img.height)
         if (img.width !== img.height) {
           showNotification('Uploaded image must be square', '#ff6c5c');
           URL.revokeObjectURL(previewUrl);
