@@ -128,6 +128,8 @@ body {
 #brightness-slider {
     writing-mode: bt-lr;
     -webkit-appearance: slider-vertical;
+    display: flex;
+    align-items: center;
     width: 18px;
     height: 220px;
     margin: 0;
