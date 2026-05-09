@@ -66,6 +66,17 @@ document.addEventListener('DOMContentLoaded', () => {
       clearImage()
     });
   }
+
+  const brightnessSlider = document.getElementById('brightness-slider');
+  const brightnessValue = document.getElementById('brightness-value');
+  if (brightnessSlider && brightnessValue) {
+    const updateBrightnessValue = () => {
+      brightnessValue.textContent = brightnessSlider.value;
+    };
+
+    updateBrightnessValue();
+    brightnessSlider.addEventListener('input', updateBrightnessValue);
+  }
 });
 
 function clearGrid() {

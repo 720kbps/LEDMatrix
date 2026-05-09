@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.utils.text import get_valid_filename
 from django.conf import settings
@@ -48,13 +48,9 @@ def upload_image(request):
     filename = f'{name_root}-{uuid.uuid4().hex}{ext}'
 
     storage = FileSystemStorage(location=UPLOADS_DIR)
-    saved_name = storage.save(filename, upload)
-    image_url = f'{settings.MEDIA_URL}uploads/{saved_name}'
+    storage.save(filename, upload)
 
-    return render(request, 'index.html', {
-        'image_url': image_url,
-        'gallery_images': _get_latest_images(),
-    })
+    return redirect('homepage')
 
 
 @csrf_exempt
