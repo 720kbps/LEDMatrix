@@ -66,16 +66,22 @@
 }
 
 #matrix-controls {
+    position: relative;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 24px;
 }
 
 #matrix-wrapper {
     display: flex;
+    margin: 0 auto;
 }
 
 #slider-wrapper {
+    position: absolute;
+    right: -90px;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: row;
     align-items: center;
