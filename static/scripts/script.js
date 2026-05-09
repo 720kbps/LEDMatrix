@@ -195,7 +195,9 @@ function showNotification(message, color) {
   container.appendChild(toast);
 
   requestAnimationFrame(() => {
-    toast.classList.add('toast--visible');
+    requestAnimationFrame(() => {
+      toast.classList.add('toast--visible');
+    });
   });
 
   setTimeout(() => {
