@@ -48,9 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!file) {
         return;
       }
-
-      const previewUrl = URL.createObjectURL(file);
-      renderImageToGrid(previewUrl);
+      // check if the picture is square
+      if(file.width === file.height){
+        console.error('Uploaded image must be square');
+        showNotification('Uploaded image must be square', '#ff6c5c');
+        return;
+      }
+      else{
+        showNotification('Image uploaded successfully', '#5fff65');
+        const previewUrl = URL.createObjectURL(file);
+        renderImageToGrid(previewUrl);
+      }
     });
   }
 
@@ -160,4 +168,36 @@ function renderImageToGrid(imageUrl) {
       }
     }
   };
+}
+
+function showNotification(message, color) {
+  const containerId = 'notification-container';
+  let container = document.getElementById(containerId);
+
+  if (!container) {
+    container = document.createElement('div');
+    container.id = containerId;
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  toast.style.background = color;
+
+  container.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    toast.classList.add('toast--visible');
+  });
+
+  setTimeout(() => {
+    toast.classList.remove('toast--visible');
+    setTimeout(() => {
+      toast.remove();
+      if (!container.hasChildNodes()) {
+        container.remove();
+      }
+    }, 200);
+  }, 2500);
 }
