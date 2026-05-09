@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  showNotification('Welcome to the Pixel Art Gallery!', '#5f9fff');
   const size = 16;
   const tbody = document.getElementById('matrix-body');
 
@@ -53,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const img = new Image();
 
       img.onload = () => {
-        console.log(img.width, img.height)
         if (img.width !== img.height) {
           showNotification('Uploaded image must be square', '#ff6c5c');
           URL.revokeObjectURL(previewUrl);
