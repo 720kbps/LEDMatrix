@@ -85,6 +85,14 @@ body {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
+#matrix-panel {
+    width: auto;
+    max-width: calc(16 * 32px + 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #matrix-controls {
     position: relative;
     display: flex;
@@ -97,23 +105,21 @@ body {
     margin: 0 auto;
 }
 
-#slider-wrapper {
+#slider-panel {
     position: absolute;
-    right: -90px;
+    right: -120px;
     top: 50%;
     transform: translateY(-50%);
+    padding: 12px 14px;
+    width: auto;
+    min-width: 80px;
+}
+
+#slider-wrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0px;
-    width: auto;
-}
-
-#slider-stack {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 #brightness-slider {
@@ -144,4 +150,5 @@ body {
 #clear-button {
     margin-top: 12px;
     margin-bottom: 0;
+    align-self: center;
 }
