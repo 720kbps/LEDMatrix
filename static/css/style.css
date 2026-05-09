@@ -67,15 +67,17 @@
 
 #matrix-controls {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 16px;
 }
 
 #brightness-control {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
+    width: 80px;
 }
 
 #brightness-slider {
@@ -83,14 +85,27 @@
     -webkit-appearance: slider-vertical;
     width: 18px;
     height: 220px;
+    margin: 0;
 }
 
 #brightness-value {
+    position: absolute;
+    top: 0;
+    left: 32px;
+    width: 40px;
+    text-align: center;
     background: #212529;
     color: #fff;
     font-size: 12px;
-    padding: 4px 8px;
+    padding: 4px 6px;
     border-radius: 6px;
+}
+
+#brightness-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 12px;
+    color: #444;
 }
 
 #clear-button {
