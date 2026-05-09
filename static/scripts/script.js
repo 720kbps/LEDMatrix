@@ -48,17 +48,23 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!file) {
         return;
       }
-      // check if the picture is square
-      if(file.width === file.height){
-        console.error('Uploaded image must be square');
-        showNotification('Uploaded image must be square', '#ff6c5c');
-        return;
-      }
-      else{
+
+      const previewUrl = URL.createObjectURL(file);
+      const img = new Image();
+
+      img.onload = () => {
+        if (img.width !== img.height) {
+          showNotification('Uploaded image must be square', '#ff6c5c');
+          URL.revokeObjectURL(previewUrl);
+          uploadInput.value = '';
+          return;
+        }
+
         showNotification('Image uploaded successfully', '#5fff65');
-        const previewUrl = URL.createObjectURL(file);
         renderImageToGrid(previewUrl);
-      }
+      };
+
+      img.src = previewUrl;
     });
   }
 
