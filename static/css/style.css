@@ -72,12 +72,17 @@
 }
 
 #brightness-control {
-    position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    width: 80px;
+    gap: 10px;
+    width: 90px;
+}
+
+#brightness-slider-wrap {
+    position: relative;
+    height: 220px;
+    display: flex;
+    align-items: center;
 }
 
 #brightness-slider {
@@ -90,8 +95,9 @@
 
 #brightness-value {
     position: absolute;
-    top: 0;
-    left: 32px;
+    left: 26px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 40px;
     text-align: center;
     background: #212529;
