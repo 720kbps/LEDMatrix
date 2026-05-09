@@ -208,3 +208,6 @@ function showNotification(message, color) {
     }, 200);
   }, 2500);
 }
+
+window.showNotification = showNotification;
+
