@@ -68,21 +68,19 @@
 #matrix-controls {
     display: flex;
     align-items: flex-start;
-    gap: 16px;
+    gap: 24px;
 }
 
-#brightness-control {
+#matrix-wrapper {
     display: flex;
+}
+
+#slider-wrapper {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 10px;
-    width: 90px;
-}
-
-#brightness-slider-wrap {
-    position: relative;
-    height: 220px;
-    display: flex;
-    align-items: center;
+    width: 70px;
 }
 
 #brightness-slider {
@@ -94,17 +92,13 @@
 }
 
 #brightness-value {
-    position: absolute;
-    left: 26px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    text-align: center;
     background: #212529;
     color: #fff;
     font-size: 12px;
     padding: 4px 6px;
     border-radius: 6px;
+    width: 40px;
+    text-align: center;
 }
 
 #brightness-label {
