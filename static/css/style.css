@@ -67,7 +67,7 @@
 
 #matrix-controls {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 24px;
 }
 
@@ -77,10 +77,17 @@
 
 #slider-wrapper {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: auto;
+}
+
+#slider-stack {
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    width: 70px;
 }
 
 #brightness-slider {
