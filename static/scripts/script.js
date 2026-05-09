@@ -207,7 +207,6 @@ function showNotification(message, color) {
       }
     }, 200);
   }, 2500);
+
+  return toast;
 }
-
-window.showNotification = showNotification;
-
